@@ -53,7 +53,7 @@ jobs:
           cd counters-backend
           npm run test
   deploy:
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
     needs:
       - frontend-tests
       - backend-tests
@@ -68,16 +68,16 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   tag-release:
-      if: ${{ github.event_name == 'push' }}
-      needs:
-        - deploy
-      runs-on: ubuntu-22.04
-      steps:
-        - name: Checkout for tagging
-          uses: actions/checkout@v3
-        - name: Bump version and push tag
-          uses: anothrNick/github-tag-action@1.55.0
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            DEFAULT_BUMP: patch
-            WITH_V: true
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
+    needs:
+      - deploy
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout for tagging
+        uses: actions/checkout@v3
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.55.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: true
