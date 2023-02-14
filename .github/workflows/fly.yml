@@ -69,7 +69,7 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Pass SHA to build
         run: |
-          echo "module.exports = 'unset release hash';" > counters-backend/release.js
+          echo "module.exports = '${{ github.sha }}';" > counters-backend/release.js
       - name: Deploy app to fly.io
         run: flyctl deploy --remote-only
         env:

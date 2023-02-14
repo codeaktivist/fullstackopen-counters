@@ -20,7 +20,7 @@ const Environment = () => {
       <div><span className='frontend'>Frontend Environment:</span> {info.frontend}</div>
       <div><span className='backend'>Backend Environment:</span> {info.backend}</div>
       <div>Backend IP address: {info.ip}</div>
-      <div>Release: {info.version}</div>
+      <div>Release: <a href={'https://github.com/codeaktivist/fullstackopen-counters/commit/' + info.version}>{info.version}</a></div>
       <div>Started: {info.timestamp}</div>
     </>
   );
