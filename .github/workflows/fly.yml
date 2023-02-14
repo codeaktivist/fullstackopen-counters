@@ -18,7 +18,8 @@ jobs:
       - name: DEBUG PRINT
         run: |
           echo SHA: ${{ github.sha }}
-          echo COMMITS: ${{ join(github.event.commits.*.message) }}
+          echo COMMITS: ${{ join(github.event.commits.*.message, ', ') }}
+          echo EVENT: ${{ toJSON(github.event) }}
         env:
           RELEASE_HASH: ${{ github.sha }}
       - name: Checkout repository for frontend test
@@ -59,18 +60,12 @@ jobs:
           cd counters-backend
           npm run test
   deploy:
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
     needs:
       - frontend-tests
       - backend-tests
     runs-on: ubuntu-20.04
     steps:
-      - name: Pass SHA to code
-        run: |
-          echo ${{ github.sha }}
-          echo ${{ join(github.event.commits.*.message) }}
-        env:
-          RELEASE_HASH: ${{ github.sha }}
       - name: Checkout repository for deploy
         uses: actions/checkout@v3
       - name: Setup deploy to fly.io
@@ -80,17 +75,17 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   tag-release:
-      if: ${{ github.event_name == 'push' }}
-      needs:
-        - deploy
-      runs-on: ubuntu-22.04
-      steps:
-        - name: Checkout for tagging
-          uses: actions/checkout@v3
-        - name: Bump version and push tag
-          uses: anothrNick/github-tag-action@1.36.0
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            DEFAULT_BUMP: minor
-            DEFAULT_BRANCH: main
-            WITH_V: true
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
+    needs:
+      - deploy
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout for tagging
+        uses: actions/checkout@v3
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          DEFAULT_BRANCH: main
+          WITH_V: true
