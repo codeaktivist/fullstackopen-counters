@@ -59,6 +59,12 @@ jobs:
       - backend-tests
     runs-on: ubuntu-20.04
     steps:
+      - name: Pass SHA to code
+        run: |
+          echo ${{ github.sha }}
+          echo ${{ join(github.event.commits.*.message) }}
+        env:
+          RELEASE_HASH: {{ github.sha }}
       - name: Checkout repository for deploy
         uses: actions/checkout@v3
       - name: Setup deploy to fly.io
