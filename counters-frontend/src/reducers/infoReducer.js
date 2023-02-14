@@ -35,6 +35,12 @@ const envSlice = createSlice({
         ...state,
         version: action.payload.version
       };
+    },
+    printTimestamp(state, action) {
+      return {
+        ...state,
+        timestamp: action.payload.timestamp
+      };
     }
   }
 });
@@ -72,6 +78,15 @@ export const getVersion = () => {
   };
 };
 
+export const getTimestamp = () => {
+  return async dispatch => {
+    const response = await axios
+      .get('/api/timestamp')
+      .then(res => res.data);
+    dispatch(printTimestamp({ timestamp: response }));
+  };
+};
 
-export const { printBackend, printFrontend, printIp, printVersion } = envSlice.actions;
+
+export const { printBackend, printFrontend, printIp, printVersion, printTimestamp } = envSlice.actions;
 export default envSlice.reducer;

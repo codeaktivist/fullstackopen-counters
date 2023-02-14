@@ -1,4 +1,4 @@
-import { getFrontend, getBackend, getIp, getVersion } from '../reducers/infoReducer';
+import { getFrontend, getBackend, getIp, getVersion, getTimestamp } from '../reducers/infoReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -11,7 +11,8 @@ const Environment = () => {
     dispatch(getBackend());
     dispatch(getIp());
     dispatch(getVersion());
-  },[]);
+    dispatch(getTimestamp());
+  },[dispatch]);
 
   return (
     <>
@@ -20,6 +21,7 @@ const Environment = () => {
       <div><span className='backend'>Backend Environment:</span> {info.backend}</div>
       <div>Backend IP address: {info.ip}</div>
       <div>Release: {info.version}</div>
+      <div>Started: {info.timestamp}</div>
     </>
   );
 };

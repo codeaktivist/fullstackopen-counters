@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const config = require('../utils/config');
 
-const initialRedisCounter = 0;
+const initialRedisCounter = 22;
 
 const redis = require('redis');
 const redisClient = redis.createClient({

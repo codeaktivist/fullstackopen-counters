@@ -1,4 +1,10 @@
-/node_modules
-/build
-/coverage
+coverage
+node_modules
+build
+.dockerignore
+.eslintignore
+.eslintrc.js
+.gitignore
+babel.config.json
+Dockerfile
 junit.xml

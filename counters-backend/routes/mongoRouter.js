@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const config = require('../utils/config');
 
-const initialMongoCounter = 7;
+const initialMongoCounter = 33;
 
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 try {
-  mongoose.connect(config.MONGO_URL + '?authSource=admin');
+  mongoose.connect(config.MONGO_URL);
 } catch (error) {
   console.log(error);
 }

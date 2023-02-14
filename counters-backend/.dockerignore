@@ -1,5 +1,10 @@
-/node_modules
-/build
-/mongo_data
-/redis_data
+build
+mongo_data
+node_modules
+redis_data
+.dockerignore
 .env
+.eslintignore
+.eslintrc.js
+.gitignore
+Dockerfile

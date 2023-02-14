@@ -13,4 +13,8 @@ services:
     build: .
     ports:
       - 8080:8080
+    environment:
+      - PORT_PROD=8080
+      - REDIS_URL_PROD=redis://default:UZTriJ2iPmgtREaht4sRkMA8XDkZJfpK@redis-11974.c300.eu-central-1-1.ec2.cloud.redislabs.com:11974
+      - MONGO_URL_PROD=mongodb+srv://fullstack:JEgjmVr34hcz6Fqd@fullstackopen.jjyauao.mongodb.net/countersFso?retryWrites=true&w=majority
     container_name: counters-full-prod

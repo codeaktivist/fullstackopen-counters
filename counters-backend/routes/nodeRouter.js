@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // this counter is stored in server RAM
-let InitialNodeCounter = 0;
+let InitialNodeCounter = 11;
 
 router.get('/', (req, res) => {
   res.send(InitialNodeCounter.toString());
