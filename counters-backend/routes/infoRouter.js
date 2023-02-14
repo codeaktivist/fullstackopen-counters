@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const releaseHash = require('../release');
 
 const ip = require('ip');
 
@@ -14,7 +15,7 @@ router.get('/ip', (req, res) => {
 });
 
 router.get('/version', (req, res) => {
-  res.send(process.env.RELEASE_HASH || 'unset release hash');
+  res.send(releaseHash);
 });
 
 router.get('/timestamp', (req, res) => {

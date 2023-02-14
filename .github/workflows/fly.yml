@@ -17,11 +17,9 @@ jobs:
     steps:
       - name: DEBUG PRINT
         run: |
-          echo SHA: ${{ github.sha }}
-          echo COMMITS: ${{ join(github.event.commits.*.message, ', ') }}
-          echo EVENT: ${{ toJSON(github.event) }}
-        env:
-          RELEASE_HASH: ${{ github.sha }}
+          echo "SHA: ${{ github.sha }}"
+          echo "COMMITS: ${{ join(github.event.commits.*.message, ', ') }}"
+          echo "CONTEXT: ${{ toJSON(github) }}"
       - name: Checkout repository for frontend test
         uses: actions/checkout@v3
       - name: Setup Node environment
@@ -70,6 +68,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup deploy to fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Pass SHA to build
+        run: |
+          echo "module.exports = 'unset release hash';" > counters-backend/release.js
       - name: Deploy app to fly.io
         run: flyctl deploy --remote-only
         env:
