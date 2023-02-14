@@ -1,5 +1,6 @@
-# This Dockerfile will run the app in develompent environemnt:
-# - Frontend is served via backend
+# This Compose file will run the app in develompent environemnt:
+# - Frontend is served on port 3001
+# - Backend is served on port 3000, might also serve an existing frontend build
 # - MongoDB is using a docker container
 # - Redis is using a docker container
 

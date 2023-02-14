@@ -1,5 +1,5 @@
-# This Dockerfile will run the app in production environemnt:
-# - Frontend is served via backend
+# This Compose will start the app in production environemnt:
+# - Frontend is served via backend, both on port 8080
 # - MongoDB is using live data from Atlas (Cloud)
 # - Redis is using live data from Redis Cloud
 

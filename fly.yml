@@ -17,8 +17,8 @@ jobs:
     steps:
       - name: DEBUG PRINT
         run: |
-          echo ${{ github.sha }}
-          echo ${{ join(github.event.commits.*.message) }}
+          echo SHA: ${{ github.sha }}
+          echo COMMITS: ${{ join(github.event.commits.*.message) }}
         env:
           RELEASE_HASH: {{ github.sha }}
       - name: Checkout repository for frontend test
