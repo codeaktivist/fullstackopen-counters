@@ -19,7 +19,6 @@ jobs:
         run: |
           echo "SHA: ${{ github.sha }}"
           echo "COMMITS: ${{ join(github.event.commits.*.message, ', ') }}"
-          echo "CONTEXT: ${{ toJSON(github) }}"
       - name: Checkout repository for frontend test
         uses: actions/checkout@v3
       - name: Setup Node environment
