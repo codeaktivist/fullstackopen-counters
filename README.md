@@ -59,7 +59,7 @@ This app will be uses to
 #### Deploy to fly.io (Github Actions)
 - one release pipeline will test, deploy and tag releases
 - main branch is protected, use PR to update release
-- supported hashes in commit messages: #patch (default), #minor, #major, #skip
+- supported hashes in commit messages: #none, #patch (default), #minor, #major, #skip
 
 ## Environment variables
 To be set in dotenv-file ./counters-backend/.env
