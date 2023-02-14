@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const config = require('../utils/config');
 
+const initialRedisCounter = 0;
+
 const redis = require('redis');
 const redisClient = redis.createClient({
   url: config.REDIS_URL
@@ -10,13 +12,24 @@ const redisClient = redis.createClient({
 redisClient.on('error', err => console.log('Redis Client Error ', err));
 redisClient.connect();
 
+const checkOrInitCounter = async () => {
+  const existingCounter = await redisClient.get('counter-fso');
+  if (!existingCounter) {
+    redisClient.set('counter-fso', initialRedisCounter);
+    return initialRedisCounter;
+  }
+  return existingCounter;
+};
+
+checkOrInitCounter();
+
 const getCounter = () => {
   return redisClient.get('counter-fso');
 };
 
 router.get('/', async (req, res) => {
   const counter = await getCounter();
-  res.send(counter.toString());
+  res.send((counter || 0).toString());
 });
 
 router.get('/increment', async (req, res) => {

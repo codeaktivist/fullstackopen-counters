@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const ENV = process.env.NODE_ENV || 'unset';
+const ENV = process.env.NODE_ENV || 'unset node environment';
 
 const { PORT, REDIS_URL, MONGO_URL } = ENV === 'production'
   ? {

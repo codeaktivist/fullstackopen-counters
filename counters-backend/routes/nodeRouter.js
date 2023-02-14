@@ -2,25 +2,25 @@ const express = require('express');
 const router = express.Router();
 
 // this counter is stored in server RAM
-let nodeCounter = 0;
+let InitialNodeCounter = 0;
 
 router.get('/', (req, res) => {
-  res.send(nodeCounter.toString());
+  res.send(InitialNodeCounter.toString());
 });
 
 router.get('/increment', (req, res) => {
-  nodeCounter += 1;
-  res.send(nodeCounter.toString());
+  InitialNodeCounter += 1;
+  res.send(InitialNodeCounter.toString());
 });
 
 router.get('/decrement', (req, res) => {
-  nodeCounter -= 1;
-  res.send(nodeCounter.toString());
+  InitialNodeCounter -= 1;
+  res.send(InitialNodeCounter.toString());
 });
 
 router.get('/reset', (req, res) => {
-  nodeCounter = 0;
-  res.send(nodeCounter.toString());
+  InitialNodeCounter = 0;
+  res.send(InitialNodeCounter.toString());
 });
 
 module.exports = router;

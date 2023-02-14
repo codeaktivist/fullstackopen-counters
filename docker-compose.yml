@@ -8,8 +8,9 @@ version: '3.3'
 # name: counters-prod
 
 services:
-  app:
+  full-prod:
     image: counters
     build: .
     ports:
       - 8080:8080
+    container_name: counters-full-prod

@@ -19,6 +19,6 @@ RUN cd frontend-temp && npm ci && npm run build && mv build ../build && cd .. &&
 
 ENV PORT_PROD=8080
 
-USER node
+# USER node // Resulted in 'permission denied' when run on local machine!
 
 CMD [ "npm", "run", "prod" ]

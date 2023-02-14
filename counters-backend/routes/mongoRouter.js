@@ -2,9 +2,15 @@ const express = require('express');
 const router = express.Router();
 const config = require('../utils/config');
 
+const initialMongoCounter = 7;
+
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
-mongoose.connect(config.MONGO_URL);
+try {
+  mongoose.connect(config.MONGO_URL + '?authSource=admin');
+} catch (error) {
+  console.log(error);
+}
 
 const counterSchema = new mongoose.Schema({
   mongoCounter: Number
@@ -12,17 +18,17 @@ const counterSchema = new mongoose.Schema({
 
 const Counter = mongoose.model('Counters', counterSchema);
 
-const initCounter = async () => {
-  const findCounter = await Counter.findOne({mongoCounter: {$exists:true}});
-  if (!findCounter) {
-    const mongoCounter = new Counter({ mongoCounter: 0 });
+const checkOrInitCounter = async () => {
+  const existingCounter = await Counter.findOne({mongoCounter: {$exists:true}});
+  if (!existingCounter) {
+    const mongoCounter = new Counter({ mongoCounter: initialMongoCounter });
     mongoCounter.save();
     return mongoCounter;
   }
-  return findCounter;
+  return existingCounter;
 };
 
-initCounter();
+checkOrInitCounter();
 
 const getCounter = async () => {
   return await Counter.findOne({mongoCounter: {$exists:true}});

@@ -1,10 +1,15 @@
+# This Dockerfile will run the app in develompent environemnt:
+# - Frontend is served via backend
+# - MongoDB is using a docker container
+# - Redis is using a docker container
+
 version: '3.3'
 
 # name: counters-dev
 
 services:
 
-  frontend:
+  frontend-dev:
     image: counters-frontend-dev
     build:
       context: ./counters-frontend
@@ -15,13 +20,13 @@ services:
       - NODE_ENV=development
       - PORT_DEV=3000
     volumes:
-      - ./counters-frontend/:/usr/src/app
+      - ./counters-frontend:/usr/src/app
     depends_on:
-      - mongo
-      - redis
+      - mongo-dev
+      - redis-dev
     container_name: counters-frontend-dev
 
-  backend:
+  backend-dev:
     image: counters-backend-dev
     build:
       context: ./counters-backend
@@ -30,28 +35,28 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=development
-      - MONGO_URL_DEV=mongodb://root:pwd@counters-mongo-dev:27017/counters-dev
+      - MONGO_URL_DEV=mongodb://container_user:container_password@counters-mongo-dev:27017/counters-dev
       - REDIS_URL_DEV=redis://counters-redis-dev:6379
     volumes:
       - ./counters-backend:/usr/src/app
     depends_on:
-      - mongo
-      - redis
+      - mongo-dev
+      - redis-dev
     container_name: counters-backend-dev
 
-  mongo:
+  mongo-dev:
     image: mongo
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pwd
+      MONGO_INITDB_ROOT_USERNAME: container_user
+      MONGO_INITDB_ROOT_PASSWORD: container_password
       MONGO_INITDB_DATABASE: counters-dev
     volumes:
       - ./counters-backend/mongo_data:/data/db
     container_name: counters-mongo-dev
 
-  redis:
+  redis-dev:
     image: redis
     ports:
       - 6379:6379
