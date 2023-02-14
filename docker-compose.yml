@@ -1,0 +1,15 @@
+# This Dockerfile will run the app in production environemnt:
+# - Frontend is served via backend
+# - MongoDB is using live data from Atlas (Cloud)
+# - Redis is using live data from Redis Cloud
+
+version: '3.3'
+
+# name: counters-prod
+
+services:
+  app:
+    image: counters
+    build: .
+    ports:
+      - 8080:8080

@@ -1,0 +1,49 @@
+html {
+    font-family: monospace;
+}
+
+h1 {
+    color: red;
+}
+
+button {
+    all: unset;
+    border: 1px solid gray;
+    background-color: lightgray;
+    border-radius: 4px;
+    margin: 2px;
+    padding: 2px 6px;
+}
+
+button:hover {
+    background-color: lightgoldenrodyellow;
+}
+
+button:active {
+    background-color: goldenrod;
+}
+
+span.title {
+    display: inline-block;
+    width: 80px;
+    padding-left: 4px;
+}
+
+span.description {
+    font-style: italic;
+    font-size: smaller;
+    padding-left: 8px;
+}
+
+span.counter {
+    display: inline-block;
+    width: 30px;
+}
+
+.frontend {
+    background-color: lightblue;
+}
+
+.backend {
+    background-color: lightgreen;
+}

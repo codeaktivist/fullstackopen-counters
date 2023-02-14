@@ -1,0 +1,5 @@
+/node_modules
+/build
+/mongo_data
+/redis_data
+.env
