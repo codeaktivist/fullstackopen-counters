@@ -1,4 +1,4 @@
-name: Build Counters App and publish to fly.io
+name: Deploy to fly.io
 
 on:
   push:
