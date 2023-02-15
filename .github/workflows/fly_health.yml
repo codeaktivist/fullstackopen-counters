@@ -2,7 +2,7 @@ name: Health check on fly.io
 
 on:
   schedule:
-    - cron: '15 * * * *'
+    - cron: '0 * * * *'
 
 jobs:
   hourly_health_check:

@@ -52,6 +52,7 @@ This app will be uses to
 ### Agent configuration (AZURE DevOps)
 - VM made available to pipeline via azure-pipelines-agent (https://github.com/microsoft/azure-pipelines-agent/releases)
 - pm2 configured for auto restart after boot (see 'pm2 startup')
+- Azure DevOps version is in a different repository!
 
 ## CI/CD Setups
 ### Individual pipelines (AZURE DevOps)
