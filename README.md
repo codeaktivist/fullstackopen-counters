@@ -57,6 +57,7 @@ This app will be uses to
 ### Individual pipelines (AZURE DevOps)
 - build-pipeline.yml -> install, build, lint, test, zip artifacts (drop)
 - release-pipeline.yml -> download artifacts, run app
+- Azure DevOps version is in a different repository!
 ### Deploy to fly.io (Github Actions)
 - one release pipeline will test, deploy and tag releases
 - main branch is protected, use PR to update release
