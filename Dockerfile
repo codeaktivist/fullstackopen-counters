@@ -14,8 +14,6 @@ COPY --chown=node:node counters-frontend/ frontend-temp
 
 RUN cd frontend-temp && npm ci --only=production && npm run build && mv build ../build && cd .. && rm -rf frontend-temp
 
-ENV PORT_PROD=8080
-
 USER node
 
 CMD [ "npm", "run", "prod" ]
